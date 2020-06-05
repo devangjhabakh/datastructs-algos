@@ -67,5 +67,17 @@ class BinarySearchTree{
             BinarySearchTree(*(rootnode -> right)).InOrderTraversal();
         }
     }
+    bool CheckForItem(Item GivenVal){
+        if(rootnode == nullptr){
+            return false;
+        }
+        else{
+            BinarySearchTree(*(rootnode -> left)).CheckForItem(GivenVal);
+            if(rootnode -> val == GivenVal)
+                return true;
+            BinarySearchTree(*(rootnode -> right)).CheckForItem(GivenVal);
+        }
+        return false;
+    }
 };
 #endif
