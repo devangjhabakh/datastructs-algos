@@ -15,6 +15,19 @@ class BinarySearchTree{
     BinarySearchTree(){
         rootnode = nullptr;
     }
+    ~BinarySearchTree(){
+        if (rootnode == nullptr){
+            delete rootnode;
+            return;
+        }
+        if ((rootnode -> left) != nullptr){
+            BinarySearchTree(*(rootnode -> left)).~BinarySearchTree();
+        }
+        if ((rootnode -> right) != nullptr){
+            BinarySearchTree(*(rootnode -> right)).~BinarySearchTree();
+        }
+        delete rootnode;
+    }
     BinarySearchTree(BSTNode<Item> &b){
         rootnode = &b;
     }

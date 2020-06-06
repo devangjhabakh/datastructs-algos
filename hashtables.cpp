@@ -43,7 +43,7 @@ class HashTable{
     BinarySearchTree<Item> Buckets[TABLESIZE];
     public:
     int HashFunc(string GivenName){
-        return str_hash(GivenName);
+        return str_hash(GivenName) % TABLESIZE;
     }
     void Insert(string name, int ID, int marks){
         int hashValue = HashFunc(name);
@@ -62,15 +62,16 @@ int main(){
     HashTable<StudentNode> hash1;
     while (1){
         cout<<"\nEnter 1 to Enter and 2 to Check. -1 to exit.";
-        // cin>>opt;
-        switch(1){
+        cin>>opt;
+        cout<<opt;
+        switch(opt){
             case 1: cout<<"\nEnter a student's\nname:";
-                    // cin>>temp_name;
-                    // cout<<"\nID:";
-                    // cin>>temp_ID;
-                    // cout<<"\nmarks:";
-                    // cin>>temp_marks;
-                    hash1.Insert("DEVANG",12,100);
+                    cin>>temp_name;
+                    cout<<"\nID:";
+                    cin>>temp_ID;
+                    cout<<"\nmarks:";
+                    cin>>temp_marks;
+                    hash1.Insert(temp_name,temp_ID,temp_marks);
                     break;
             case 2: cout<<"\nEnter a name to search for: ";
                     cin>>temp_name;
