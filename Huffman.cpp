@@ -9,26 +9,18 @@
 #include <vector>
 using namespace std;
 
-string CharToBinary(char c){
-    return bitset<8>(int(c)).to_string();
-}
-
-char BinaryToChar(string binary){
-    return bitset<8>(binary).to_ulong();
-}
-
-struct HuffNode{
+struct HuffNode{                                                                //A structure that holds all the values in each node of the Huffman binary tree.
     char ch;
     int freq;
 };
 
-bool operator<=(const BinaryTree<HuffNode> &a, const BinaryTree<HuffNode> &b){
+bool operator<=(const BinaryTree<HuffNode> &a, const BinaryTree<HuffNode> &b){  //A comparison opeator for two HuffNode binary trees.
     if(a.GetRootNodeValue().freq <= b.GetRootNodeValue().freq)
         return true;
     return false;
 }
 
-void MinTwoSort(BinaryTree<HuffNode> huffList[], int n){
+void MinTwoSort(BinaryTree<HuffNode> huffList[], int n){        //A function that helps sort the nodes such that the two nodes with the smallest frequencies settle to the bottom of the array.
     int count = 0,minhuffindex = 0;
     BinaryTree<HuffNode> minhuff,temp;
     while(count<2){
@@ -46,7 +38,7 @@ void MinTwoSort(BinaryTree<HuffNode> huffList[], int n){
     };
 }
 
-class HuffManDecoder{
+class HuffManDecoder{                                               //This is the decoder class. Its map object holds the decoding keys.
     map<char, string> DecoderKey;
     public:
     HuffManDecoder(map<char, string> GivenDecoderKey){
@@ -75,7 +67,7 @@ class HuffManEncodedText{
     BinaryTree<HuffNode> HuffmanTree;
     map<char, int> HuffManHistogram;
     public:
-    string pathtofound(BTNode<HuffNode> *Node, char item){
+    string pathtofound(BTNode<HuffNode> *Node, char item){         //This is the "encoding" part. It finds the path to a particular character in a Huffman Tree.
         if(Node == NULL){
             return "2";                                     //A failure code.
         }
@@ -133,7 +125,7 @@ class HuffManEncodedText{
         map<char, int>::iterator mapiter;
         mapiter = HuffManHistogram.begin();
         BinaryTree<HuffNode> *HuffNodeList = new BinaryTree<HuffNode>[HuffManHistogram.size()];  
-        for(int i=0;i<HuffManHistogram.size();++i){
+        for(int i=0;i<HuffManHistogram.size();++i){             //Creating nodes of the HuffMan tree
             HuffNode temp;
             temp.ch = mapiter -> first;
             temp.freq = mapiter -> second;
@@ -141,11 +133,11 @@ class HuffManEncodedText{
             HuffNodeList[i] = TreeTemp;
             ++mapiter;
         }
-        HuffmanTree = BuildHuffmanTree(HuffNodeList,HuffManHistogram.size());
+        HuffmanTree = BuildHuffmanTree(HuffNodeList,HuffManHistogram.size());   //Building Huffman tree
         ofstream outputText(filename+"-encoded.txt");
         mapiter = HuffManHistogram.begin();
         string PathVector;
-        for (int i=0;i<concatenatedinput.size();++i){
+        for (int i=0;i<concatenatedinput.size();++i){                           //Creating and saving encoded file.
             PathVector = pathtofound(HuffmanTree.GetRootNode(),concatenatedinput[i]);
             outputText<<PathVector.substr(0,(PathVector.size()-1));
             outputText<<" ";
