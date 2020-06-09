@@ -12,7 +12,7 @@ template <typename Item>
 BTNode<Item> *RecursiveCopy(BTNode<Item> *Node){
     if (Node == NULL)
         return NULL;
-    BTNode<Item> *temp = (BTNode<Item> *)malloc(sizeof(Node));
+    BTNode<Item> *temp = new BTNode<Item>;
     temp -> val = Node -> val;
     temp -> left = RecursiveCopy(Node -> left);
     temp -> right = RecursiveCopy(Node -> right);
@@ -23,31 +23,25 @@ class BinaryTree{
     private:
     BTNode<Item> *rootnode;
     public:
-    // void DestroyRecursive(BTNode<Item> *Node){
-    //     if(Node != NULL){
-    //         this -> DestroyRecursive(Node -> right);
-    //         this -> DestroyRecursive(Node -> left);
-    //     }
-    //     delete Node;
-    // }
-    // ~BinaryTree(){
-    //     DestroyRecursive(rootnode);
-    // }
+    void DestroyRecursive(BTNode<Item> *Node){
+        if(Node != NULL){
+            this -> DestroyRecursive(Node -> right);
+            this -> DestroyRecursive(Node -> left);
+        }
+        delete Node;
+    }
+    ~BinaryTree(){
+        DestroyRecursive(rootnode);
+    }
     BinaryTree(){
         rootnode = NULL;
     }
-    // BinaryTree<Item>& operator=(const BinaryTree<Item> &src){
-    //     // if (src.rootnode == NULL )
-    //     //     this -> rootnode = NULL;
-    //     // BTNode<Item> *temp = (BTNode<Item> *)malloc(sizeof(rootnode));
-    //     // temp->val = src.rootnode -> val;    
-    //     // temp->left = RecursiveCopy(src.rootnode -> left);   
-    //     // temp->right = RecursiveCopy(src.rootnode -> right);
-    //     BTNode<Item> *temp = (BTNode<Item> *)malloc(sizeof(BTNode<Item>));
-    //     temp = RecursiveCopy(src.rootnode);
-    //     this -> rootnode = temp;
-    //     return *this;
-    // }
+    BinaryTree<Item>& operator=(const BinaryTree<Item> &src){
+        BTNode<Item> *temp = new BTNode<Item>;
+        temp = RecursiveCopy(src.rootnode);
+        this -> rootnode = temp;
+        return *this;
+    }
     BinaryTree(Item val){
         BTNode<Item> *temp = new BTNode<Item>;
         temp -> val = val;
@@ -65,8 +59,8 @@ class BinaryTree{
     BinaryTree(Item val, BinaryTree<Item> &b1, BinaryTree<Item> &b2){
         BTNode<Item> *temp = new BTNode<Item>;
         temp -> val = val;
-        temp -> right = b1.rootnode;
-        temp -> left = b2.rootnode;
+        temp -> right = RecursiveCopy(b1.rootnode);
+        temp -> left = RecursiveCopy(b2.rootnode);
         rootnode = temp;
     }
     Item GetRootNodeValue() const {
