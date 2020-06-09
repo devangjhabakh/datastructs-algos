@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 template <typename Item>
@@ -9,8 +10,8 @@ struct BTNode{
 };
 template <typename Item>
 BTNode<Item> *RecursiveCopy(BTNode<Item> *Node){
-    if (Node == nullptr)
-        return nullptr;
+    if (Node == NULL)
+        return NULL;
     BTNode<Item> *temp = (BTNode<Item> *)malloc(sizeof(Node));
     temp -> val = Node -> val;
     temp -> left = RecursiveCopy(Node -> left);
@@ -23,7 +24,7 @@ class BinaryTree{
     BTNode<Item> *rootnode;
     public:
     // void DestroyRecursive(BTNode<Item> *Node){
-    //     if(Node != nullptr){
+    //     if(Node != NULL){
     //         this -> DestroyRecursive(Node -> right);
     //         this -> DestroyRecursive(Node -> left);
     //     }
@@ -33,34 +34,36 @@ class BinaryTree{
     //     DestroyRecursive(rootnode);
     // }
     BinaryTree(){
-        ;
+        rootnode = NULL;
     }
-    BinaryTree<Item>& operator=(const BinaryTree<Item> &src){
-        // if (src.rootnode == nullptr )
-        //     this -> rootnode = nullptr;
-        // BTNode<Item> *temp = (BTNode<Item> *)malloc(sizeof(rootnode));
-        // temp->val = src.rootnode -> val;    
-        // temp->left = RecursiveCopy(src.rootnode -> left);   
-        // temp->right = RecursiveCopy(src.rootnode -> right);
-        this -> rootnode = RecursiveCopy(src.rootnode);
-        return *this;
-    }
+    // BinaryTree<Item>& operator=(const BinaryTree<Item> &src){
+    //     // if (src.rootnode == NULL )
+    //     //     this -> rootnode = NULL;
+    //     // BTNode<Item> *temp = (BTNode<Item> *)malloc(sizeof(rootnode));
+    //     // temp->val = src.rootnode -> val;    
+    //     // temp->left = RecursiveCopy(src.rootnode -> left);   
+    //     // temp->right = RecursiveCopy(src.rootnode -> right);
+    //     BTNode<Item> *temp = (BTNode<Item> *)malloc(sizeof(BTNode<Item>));
+    //     temp = RecursiveCopy(src.rootnode);
+    //     this -> rootnode = temp;
+    //     return *this;
+    // }
     BinaryTree(Item val){
-        BTNode<Item> *temp = (BTNode<Item> *)malloc(sizeof(BTNode<Item>));
+        BTNode<Item> *temp = new BTNode<Item>;
         temp -> val = val;
-        temp -> right = nullptr;
-        temp -> left = nullptr;
+        temp -> right = NULL;
+        temp -> left = NULL;
         rootnode = temp;
     }
     BinaryTree(BTNode<Item> &Node){
-        BTNode<Item> *temp = (BTNode<Item> *)malloc(sizeof(BTNode<Item>));
+        BTNode<Item> *temp = new BTNode<Item>;
         temp -> val = Node.val;
         temp -> right = Node.right;
         temp -> left = Node.left;
         rootnode = temp;
     }
     BinaryTree(Item val, BinaryTree<Item> &b1, BinaryTree<Item> &b2){
-        BTNode<Item> *temp = (BTNode<Item> *)malloc(sizeof(BTNode<Item>));
+        BTNode<Item> *temp = new BTNode<Item>;
         temp -> val = val;
         temp -> right = b1.rootnode;
         temp -> left = b2.rootnode;
@@ -69,7 +72,7 @@ class BinaryTree{
     Item GetRootNodeValue() const {
         return (*rootnode).val;
     }
-    Item* GetRootNode(){
+    BTNode<Item>* GetRootNode(){
         return rootnode;
     }
     void ChangeVal(Item val){
