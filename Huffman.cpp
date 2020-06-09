@@ -9,13 +9,6 @@
 #include <vector>
 using namespace std;
 
-//THE DESTRUCTOR FOR THE BINARY TREE NEEDS TO BE FIXED. 
-//THIS PROGRAM IS SUSCEPTIBLE TO MASSIVE MEMORY LEAKS.
-//
-//
-//
-//
-//
 string CharToBinary(char c){
     return bitset<8>(int(c)).to_string();
 }
@@ -34,45 +27,6 @@ bool operator<=(const BinaryTree<HuffNode> &a, const BinaryTree<HuffNode> &b){
         return true;
     return false;
 }
-
-// bool CheckIfAllDone(list<BinaryTree<HuffNode> > huffList){
-//     list<BinaryTree<HuffNode> >::iterator huffIter;
-//     huffIter = huffList.begin();
-//     while(huffIter != huffList.end()){
-//         if((*huffIter).GetRootNodeValue().Done == false){
-//             return false;
-//         }
-//         else{
-//             char tempch = (*huffIter).GetRootNodeValue().ch;
-//             int tempfreq = (*huffIter).GetRootNodeValue().freq;
-//             cout<<tempfreq;
-//         }
-//         ++huffIter;
-//     }
-//     return true;
-// }
-
-// bool CheckIfAllDone(BinaryTree<HuffNode> *huffList, int n){
-//     // list<BinaryTree<HuffNode> >::iterator huffIter;
-//     for (int i=0;i<n;++i){
-//         if(huffList[i].GetRootNodeValue().Done == false){
-//             return false;
-//         }
-//     }
-//     return true;
-// }
-
-
-// list<BinaryTree<HuffNode> >::iterator FirstNotDone(list<BinaryTree<HuffNode> > huffList){
-//     list<BinaryTree<HuffNode> >::iterator huffIter;
-//     huffIter = huffList.begin();
-//     while(huffIter != huffList.end()){
-//         if((*huffIter).GetRootNodeValue().Done == false){
-//             return huffIter;
-//         }
-//         ++huffIter;
-//     }
-// }
 
 void MinTwoSort(BinaryTree<HuffNode> huffList[], int n){
     int count = 0,minhuffindex = 0;
@@ -187,28 +141,7 @@ class HuffManEncodedText{
             HuffNodeList[i] = TreeTemp;
             ++mapiter;
         }
-        // sort(HuffNodeList, HuffNodeList + (HuffManHistogram.size()));
         HuffmanTree = BuildHuffmanTree(HuffNodeList,HuffManHistogram.size());
-        // while(!CheckIfAllDone(HuffNodeList),HuffManHistogram.size()){
-        //     BinaryTree<HuffNode> Node1,Node2;
-        //     HuffNode temp;
-        //     Node1 = HuffNodeList.front();
-        //     temp = Node1.GetRootNodeValue();
-        //     temp.Done = true;
-        //     Node1.ChangeVal(temp);
-        //     HuffNodeList.pop_front();
-        //     Node2 = HuffNodeList.front();
-        //     temp = Node2.GetRootNodeValue();
-        //     temp.Done = true;
-        //     Node2.ChangeVal(temp);
-        //     HuffNodeList.pop_front();
-        //     temp.ch = '\0';
-        //     temp.Done = true;
-        //     temp.freq = Node1.GetRootNodeValue().freq + Node2.GetRootNodeValue().freq;
-        //     BinaryTree<HuffNode> bmaster(temp,Node1,Node2);
-        //     HuffNodeList.push_back(bmaster);
-        //     HuffNodeList.sort(); 
-        // };
         ofstream outputText(filename+"-encoded.txt");
         mapiter = HuffManHistogram.begin();
         string PathVector;
@@ -241,8 +174,3 @@ int main(){
     cout<<MyHuffManDecoder.DecodeFile("demo");
     return 1;
 }
-
-// int main(){
-//     cout<<CharToBinary('I');
-//     return 1;
-// }
