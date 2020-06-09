@@ -12,7 +12,7 @@ bool CheckIfAllTrue(bool *boolArray, int n){
 }
 
 void AdjacentMinDistance(int G1[][9], bool Done[], int n, int start,int pathLengths[], int MinIndexPath[]){
-    int minpath = INT16_MAX, minindex;
+    int minpath = INT16_MAX, minindex = 0;
     for (int i=0;i<n;++i){
         if(G1[start][i]<minpath && G1[start][i] != 0 && Done[i] == false){  //Initialize the distances for all adjacent vertices.
             if(pathLengths[i] > G1[start][i] + pathLengths[start]){
@@ -41,7 +41,7 @@ void Djikstra(int G1[][9], int n, int start){
     }
     Done[start] = true;
     pathLengths[start] = 0;
-    int minpath = INT16_MAX, minindex;
+    int minpath = INT16_MAX, minindex = 0;
     while(!CheckIfAllTrue(Done,n)){
         int MinIndexPath[2];
         AdjacentMinDistance(G1,Done,n,minindex,pathLengths,MinIndexPath);
