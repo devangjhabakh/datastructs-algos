@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#ifndef BINARYTREE_H_
+#define BINARYTREE_H_
 using namespace std;
 
 template <typename Item>
@@ -73,4 +75,4 @@ class BinaryTree{
         rootnode -> val = val;
     }
 };
-
+#endif
